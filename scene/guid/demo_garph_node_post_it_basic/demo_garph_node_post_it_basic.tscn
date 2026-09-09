@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://c502tma8vrnhe"]
+
+[ext_resource type="PackedScene" uid="uid://d1wnensqu30w7" path="res://addons/2026_09_08_gdp_post_it_to_learn_with_graph_node/scene/guid/demo_garph_node_post_it_basic/prefab/prefab_post_it_basic.tscn" id="1_tmiay"]
+[ext_resource type="Script" uid="uid://ml03rcfn77rt" path="res://addons/2026_09_08_gdp_post_it_to_learn_with_graph_node/scene/guid/demo_garph_node_post_it_basic/script/post_it_graph_board_importer.gd" id="2_mc5jy"]
+[ext_resource type="Script" uid="uid://dqrtyyg7rvxbw" path="res://addons/2026_09_08_gdp_post_it_to_learn_with_graph_node/scene/guid/demo_garph_node_post_it_basic/script/post_it_listen_to_text_edit_emit.gd" id="3_27ajb"]
+
+[node name="DemoGarphNodePostItBasic" type="Control" unique_id=1445728716]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PostItGraphBoardImporter" type="Node" parent="." unique_id=723610925 node_paths=PackedStringArray("graph_board")]
+script = ExtResource("2_mc5jy")
+graph_board = NodePath("../GraphEdit")
+graph_node_of_basic_post_it = ExtResource("1_tmiay")
+metadata/_custom_type_script = "uid://ml03rcfn77rt"
+
+[node name="GraphEdit" type="GraphEdit" parent="." unique_id=919634082]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -247.0
+grow_horizontal = 2
+grow_vertical = 2
+scroll_offset = Vector2(-40, -94)
+
+[node name="PostItGraphNodeBasic" parent="GraphEdit" unique_id=945188006 instance=ExtResource("1_tmiay")]
+layout_mode = 0
+offset_top = 94.0
+offset_bottom = 267.0
+
+[node name="TextEdit" type="TextEdit" parent="." unique_id=412663029]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 828.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "🟨 Hello 
+📌x100 y200 w200 h100
+How are you ?
+
+🟦  Hey 
+📌x300 y200 w200 h100
+Fine and you
+"
+
+[node name="PostItListenToTextEditEmit" type="Node" parent="TextEdit" unique_id=701698089 node_paths=PackedStringArray("_text_edit")]
+script = ExtResource("3_27ajb")
+_text_edit = NodePath("..")
+metadata/_custom_type_script = "uid://dqrtyyg7rvxbw"
+
+[connection signal="on_text_changed" from="TextEdit/PostItListenToTextEditEmit" to="PostItGraphBoardImporter" method="import_post_it_as_a_graph_board_from_text"]
+[connection signal="on_text_emitted" from="TextEdit/PostItListenToTextEditEmit" to="PostItGraphBoardImporter" method="import_post_it_as_a_graph_board_from_text"]

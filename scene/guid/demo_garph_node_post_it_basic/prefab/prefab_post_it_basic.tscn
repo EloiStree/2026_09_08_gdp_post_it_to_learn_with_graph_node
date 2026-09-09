@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://d1wnensqu30w7"]
+
+[ext_resource type="Script" uid="uid://b3b1bvnl5a5y6" path="res://addons/2026_09_08_gdp_post_it_to_learn_with_graph_node/scene/guid/demo_garph_node_post_it_basic/script/post_it_graph_node_basic.gd" id="1_5ibtu"]
+
+[node name="PostItGraphNodeBasic" type="GraphNode" unique_id=945188006 node_paths=PackedStringArray("_text_holder")]
+self_modulate = Color(0.8360068, 0.83600616, 7.70092e-07, 1)
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 243.0
+offset_bottom = 213.0
+mouse_filter = 1
+resizable = true
+title = "Post-it"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_5ibtu")
+_text_holder = NodePath("TextEdit")
+_color_at_start = Color(1.1310726e-06, 0.5313994, 2.0214916e-06, 1)
+metadata/_custom_type_script = "uid://b3b1bvnl5a5y6"
+
+[node name="TextEdit" type="TextEdit" parent="." unique_id=301431545]
+self_modulate = Color(1, 1, 0, 1)
+layout_mode = 2
+size_flags_vertical = 3
+text = "test"
