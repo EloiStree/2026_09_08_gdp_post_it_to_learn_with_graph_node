@@ -18,3 +18,10 @@ func set_text_for_board(board_name:String, text:String) -> void:
 	on_set_key_value_changed.emit(board_name, text)
 	on_last_text_set.emit(text)
 	on_any_changed.emit(_board_name_to_text)
+
+
+func clear() -> void:
+	_board_name_to_text.clear()
+	on_last_text_set.emit("")
+	on_set_key_value_changed.emit("", "")
+	on_any_changed.emit(_board_name_to_text)

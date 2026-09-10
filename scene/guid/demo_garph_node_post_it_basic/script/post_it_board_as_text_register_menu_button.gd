@@ -7,9 +7,6 @@ signal on_selected_board_name_in_register(text: String)
 @export var _register:PostItBoardAsTextRegister
 @export var _menu_button_to_affect:MenuButton
 
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_register.on_any_changed.connect(_on_register_changed)
 	_on_register_changed(_register._board_name_to_text)
