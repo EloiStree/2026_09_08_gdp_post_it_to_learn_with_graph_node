@@ -1,8 +1,12 @@
 [gd_scene format=3 uid="uid://c502tma8vrnhe"]
 
+[ext_resource type="Script" uid="uid://dn88ou6v3k1av" path="res://addons/2026_09_08_gdp_post_it_to_learn_with_graph_node/scene/guid/demo_garph_node_post_it_basic/script/post_it_board_as_text_register.gd" id="1_i7qnf"]
 [ext_resource type="PackedScene" uid="uid://d1wnensqu30w7" path="res://addons/2026_09_08_gdp_post_it_to_learn_with_graph_node/scene/guid/demo_garph_node_post_it_basic/prefab/prefab_post_it_basic.tscn" id="1_tmiay"]
+[ext_resource type="Script" uid="uid://dyg8m7x1yipsw" path="res://addons/2026_09_08_gdp_post_it_to_learn_with_graph_node/scene/guid/demo_garph_node_post_it_basic/script/post_it_board_as_text_register_menu_button.gd" id="2_6f3r5"]
 [ext_resource type="Script" uid="uid://ml03rcfn77rt" path="res://addons/2026_09_08_gdp_post_it_to_learn_with_graph_node/scene/guid/demo_garph_node_post_it_basic/script/post_it_graph_board_importer.gd" id="2_mc5jy"]
+[ext_resource type="Script" uid="uid://chu3jfedhtnq4" path="res://addons/2026_09_08_gdp_post_it_to_learn_with_graph_node/scene/guid/demo_garph_node_post_it_basic/script/post_it_graph_board_exporter.gd" id="3_0kh8i"]
 [ext_resource type="Script" uid="uid://dqrtyyg7rvxbw" path="res://addons/2026_09_08_gdp_post_it_to_learn_with_graph_node/scene/guid/demo_garph_node_post_it_basic/script/post_it_listen_to_text_edit_emit.gd" id="3_27ajb"]
+[ext_resource type="Script" uid="uid://derydvjxw75qf" path="res://addons/2026_09_08_gdp_post_it_to_learn_with_graph_node/scene/guid/demo_garph_node_post_it_basic/script/post_it_graph_board_spawn_and_select.gd" id="4_h2nqx"]
 
 [node name="DemoGarphNodePostItBasic" type="Control" unique_id=1445728716]
 layout_mode = 3
@@ -12,48 +16,219 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="PostItBoardAsTextRegister" type="Node" parent="." unique_id=877194937]
+script = ExtResource("1_i7qnf")
+_board_name_to_text = Dictionary[String, String]({
+"AA": "🟨Hello World AA",
+"BB": "🟨Hello World BB"
+})
+metadata/_custom_type_script = "uid://dn88ou6v3k1av"
+
+[node name="PostItBoardAsTextRegisterMenuButton" type="Node" parent="PostItBoardAsTextRegister" unique_id=1886687257 node_paths=PackedStringArray("_register", "_menu_button_to_affect")]
+script = ExtResource("2_6f3r5")
+_register = NodePath("..")
+_menu_button_to_affect = NodePath("../../MenuButton")
+metadata/_custom_type_script = "uid://dyg8m7x1yipsw"
+
 [node name="PostItGraphBoardImporter" type="Node" parent="." unique_id=723610925 node_paths=PackedStringArray("graph_board")]
 script = ExtResource("2_mc5jy")
 graph_board = NodePath("../GraphEdit")
 graph_node_of_basic_post_it = ExtResource("1_tmiay")
 metadata/_custom_type_script = "uid://ml03rcfn77rt"
 
+[node name="PostItGraphBoardExporter" type="Node" parent="." unique_id=389606527 node_paths=PackedStringArray("graph_board")]
+script = ExtResource("3_0kh8i")
+graph_board = NodePath("../GraphEdit")
+metadata/_custom_type_script = "uid://chu3jfedhtnq4"
+
+[node name="PostItGraphBoardSpawnAndSelect" type="Node" parent="." unique_id=1390995279 node_paths=PackedStringArray("_graph_edit_to_affect", "_spawn_button", "_duplicate_selected_button", "_delete_selected_button", "_delete_all_button")]
+script = ExtResource("4_h2nqx")
+_graph_edit_to_affect = NodePath("../GraphEdit")
+_post_it_to_spawn = ExtResource("1_tmiay")
+_spawn_button = [NodePath("../Panel/HBoxContainer/Button Add")]
+_duplicate_selected_button = [NodePath("../Panel/HBoxContainer/Button Duplicate")]
+_delete_selected_button = [NodePath("../Panel/HBoxContainer/Button Remove")]
+_delete_all_button = [NodePath("../Panel/HBoxContainer/Button Clear All")]
+metadata/_custom_type_script = "uid://derydvjxw75qf"
+
+[node name="Panel" type="Panel" parent="." unique_id=1019218570]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.029053422
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel" unique_id=489896857]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button Add" type="Button" parent="Panel/HBoxContainer" unique_id=217523521]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add"
+
+[node name="Button Remove" type="Button" parent="Panel/HBoxContainer" unique_id=889054032]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Remove"
+
+[node name="Button Duplicate" type="Button" parent="Panel/HBoxContainer" unique_id=1354176745]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Duplicate"
+
+[node name="Button Clear All" type="Button" parent="Panel/HBoxContainer" unique_id=665253067]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Clear"
+
 [node name="GraphEdit" type="GraphEdit" parent="." unique_id=919634082]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_top = 0.029990628
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = -247.0
+anchor_bottom = 0.88268614
+offset_bottom = 0.1739502
 grow_horizontal = 2
 grow_vertical = 2
-scroll_offset = Vector2(-40, -94)
+scroll_offset = Vector2(0, -2.000061)
+snapping_enabled = false
+minimap_enabled = false
+show_grid_buttons = false
+show_minimap_button = false
+show_arrange_button = false
+metadata/_edit_use_anchors_ = true
 
-[node name="PostItGraphNodeBasic" parent="GraphEdit" unique_id=945188006 instance=ExtResource("1_tmiay")]
-layout_mode = 0
-offset_top = 94.0
-offset_bottom = 267.0
+[node name="Panel Import Export" type="Panel" parent="." unique_id=809485684]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.88472354
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
-[node name="TextEdit" type="TextEdit" parent="." unique_id=412663029]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel Import Export" unique_id=401583097]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 828.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "🟨 Hello 
-📌x100 y200 w200 h100
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel Import Export/VBoxContainer" unique_id=1026202993]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel Import Export/VBoxContainer/HBoxContainer" unique_id=566028839]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Import"
+
+[node name="Label2" type="Label" parent="Panel Import Export/VBoxContainer/HBoxContainer" unique_id=1320983218]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Export"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel Import Export/VBoxContainer" unique_id=196440995]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextEdit In" type="TextEdit" parent="Panel Import Export/VBoxContainer/HBoxContainer2" unique_id=412663029]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "🟨Hello World
+❓https://fr.wikipedia.org/wiki/Hello_world
+📌x20.0 y20.0 w298.0 h140.0
+🔑HelloWorld42
+🔖Hello World
+🎨 00ffff 0f0fff
+Hello World is a classic of game developement
+
+
+🟨⚪Hello
+📌x100.0 y200.0 w200.0 h100.0
+🎨 ffff00 ffffff
 How are you ?
 
-🟦  Hey 
-📌x300 y200 w200 h100
+
+🟦⚪Hey
+📌x300.0 y200.0 w200.0 h100.0
+🎨 0000ff ffffff
 Fine and you
+
+
 "
 
-[node name="PostItListenToTextEditEmit" type="Node" parent="TextEdit" unique_id=701698089 node_paths=PackedStringArray("_text_edit")]
+[node name="PostItListenToTextEditEmit" type="Node" parent="Panel Import Export/VBoxContainer/HBoxContainer2/TextEdit In" unique_id=701698089 node_paths=PackedStringArray("_text_edit")]
 script = ExtResource("3_27ajb")
 _text_edit = NodePath("..")
 metadata/_custom_type_script = "uid://dqrtyyg7rvxbw"
 
-[connection signal="on_text_changed" from="TextEdit/PostItListenToTextEditEmit" to="PostItGraphBoardImporter" method="import_post_it_as_a_graph_board_from_text"]
-[connection signal="on_text_emitted" from="TextEdit/PostItListenToTextEditEmit" to="PostItGraphBoardImporter" method="import_post_it_as_a_graph_board_from_text"]
+[node name="TextEdit Out" type="TextEdit" parent="Panel Import Export/VBoxContainer/HBoxContainer2" unique_id=1845763419]
+layout_mode = 2
+size_flags_horizontal = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="PostItListenToTextEditEmit" type="Node" parent="Panel Import Export/VBoxContainer/HBoxContainer2/TextEdit Out" unique_id=1002220953 node_paths=PackedStringArray("_text_edit")]
+script = ExtResource("3_27ajb")
+_text_edit = NodePath("..")
+metadata/_custom_type_script = "uid://dqrtyyg7rvxbw"
+
+[node name="Button Export" type="Button" parent="Panel Import Export/VBoxContainer/HBoxContainer2/TextEdit Out" unique_id=1885027204]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6275168
+anchor_top = 0.6666667
+anchor_right = 0.99626684
+anchor_bottom = 0.9895833
+grow_horizontal = 2
+grow_vertical = 2
+text = "Export"
+metadata/_edit_use_anchors_ = true
+
+[node name="MenuButton" type="MenuButton" parent="." unique_id=1508859783]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.61333334
+anchor_top = 0.03280225
+anchor_right = 0.9766667
+anchor_bottom = 0.0656045
+grow_horizontal = 2
+grow_vertical = 2
+item_count = 2
+popup/item_0/text = "Test 1"
+popup/item_0/id = 0
+popup/item_1/text = "test 2"
+popup/item_1/id = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label Board Name" type="Label" parent="MenuButton" unique_id=1987206571]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 23
+text = "Board Name"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[connection signal="on_selected_board_name_in_register" from="PostItBoardAsTextRegister/PostItBoardAsTextRegisterMenuButton" to="MenuButton/Label Board Name" method="set_text"]
+[connection signal="on_selected_text_in_register" from="PostItBoardAsTextRegister/PostItBoardAsTextRegisterMenuButton" to="PostItGraphBoardImporter" method="import_post_it_as_a_graph_board_from_text"]
+[connection signal="on_export_request" from="PostItGraphBoardExporter" to="Panel Import Export/VBoxContainer/HBoxContainer2/TextEdit Out" method="set_text"]
+[connection signal="on_emit_at_ready" from="Panel Import Export/VBoxContainer/HBoxContainer2/TextEdit In/PostItListenToTextEditEmit" to="PostItGraphBoardImporter" method="import_post_it_as_a_graph_board_from_text"]
+[connection signal="on_text_changed" from="Panel Import Export/VBoxContainer/HBoxContainer2/TextEdit In/PostItListenToTextEditEmit" to="PostItGraphBoardImporter" method="import_post_it_as_a_graph_board_from_text"]
+[connection signal="on_text_emitted" from="Panel Import Export/VBoxContainer/HBoxContainer2/TextEdit In/PostItListenToTextEditEmit" to="PostItGraphBoardImporter" method="import_post_it_as_a_graph_board_from_text"]
+[connection signal="on_emit_at_ready" from="Panel Import Export/VBoxContainer/HBoxContainer2/TextEdit Out/PostItListenToTextEditEmit" to="PostItGraphBoardImporter" method="import_post_it_as_a_graph_board_from_text"]
+[connection signal="on_text_changed" from="Panel Import Export/VBoxContainer/HBoxContainer2/TextEdit Out/PostItListenToTextEditEmit" to="PostItGraphBoardImporter" method="import_post_it_as_a_graph_board_from_text"]
+[connection signal="on_text_emitted" from="Panel Import Export/VBoxContainer/HBoxContainer2/TextEdit Out/PostItListenToTextEditEmit" to="PostItGraphBoardImporter" method="import_post_it_as_a_graph_board_from_text"]
+[connection signal="button_down" from="Panel Import Export/VBoxContainer/HBoxContainer2/TextEdit Out/Button Export" to="PostItGraphBoardExporter" method="emit_export_request"]

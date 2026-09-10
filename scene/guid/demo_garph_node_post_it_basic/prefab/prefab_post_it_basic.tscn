@@ -1,15 +1,20 @@
 [gd_scene format=3 uid="uid://d1wnensqu30w7"]
 
 [ext_resource type="Script" uid="uid://b3b1bvnl5a5y6" path="res://addons/2026_09_08_gdp_post_it_to_learn_with_graph_node/scene/guid/demo_garph_node_post_it_basic/script/post_it_graph_node_basic.gd" id="1_5ibtu"]
+[ext_resource type="Script" uid="uid://dk0wpxtldej1e" path="res://addons/2026_09_08_gdp_post_it_to_learn_with_graph_node/scene/guid/demo_garph_node_post_it_basic/script/post_it_graph_node_basic_ui_manager.gd" id="2_jc6jf"]
+[ext_resource type="Script" uid="uid://dqrtyyg7rvxbw" path="res://addons/2026_09_08_gdp_post_it_to_learn_with_graph_node/scene/guid/demo_garph_node_post_it_basic/script/post_it_listen_to_text_edit_emit.gd" id="2_yuy27"]
+[ext_resource type="Script" uid="uid://cj3mokfd7v2b2" path="res://addons/2026_09_08_gdp_post_it_to_learn_with_graph_node/scene/guid/demo_garph_node_post_it_basic/script/post_it_set_font_color.gd" id="3_6gajo"]
+[ext_resource type="Script" uid="uid://cfspkgbigfuuh" path="res://addons/2026_09_08_gdp_post_it_to_learn_with_graph_node/scene/guid/demo_garph_node_post_it_basic/script/post_it_set_color_module.gd" id="4_oqcf3"]
 
-[node name="PostItGraphNodeBasic" type="GraphNode" unique_id=945188006 node_paths=PackedStringArray("_text_holder")]
+[node name="PostItGraphNodeBasic" type="GraphNode" unique_id=945188006]
 self_modulate = Color(0.8360068, 0.83600616, 7.70092e-07, 1)
-offset_left = 40.0
-offset_top = 40.0
-offset_right = 243.0
-offset_bottom = 213.0
+offset_left = 21.0
+offset_top = 17.0
+offset_right = 364.0
+offset_bottom = 303.0
 mouse_filter = 1
 resizable = true
+scaling_menus = true
 title = "Post-it"
 slot/0/left_enabled = false
 slot/0/left_type = 0
@@ -20,13 +25,173 @@ slot/0/right_type = 0
 slot/0/right_color = Color(1, 1, 1, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
 script = ExtResource("1_5ibtu")
-_text_holder = NodePath("TextEdit")
-_color_at_start = Color(1.1310726e-06, 0.5313994, 2.0214916e-06, 1)
 metadata/_custom_type_script = "uid://b3b1bvnl5a5y6"
 
-[node name="TextEdit" type="TextEdit" parent="." unique_id=301431545]
-self_modulate = Color(1, 1, 0, 1)
+[node name="PostItGraphNodeBasicUiManager" type="Node" parent="." unique_id=1573298005 node_paths=PackedStringArray("_source", "_panel_edit_post_it", "_panel_view_post_it", "_panel_buttons_of_post_it", "_button_node_unique_id", "_button_node_keyword", "_button_node_url", "_color_picker_background", "_color_picker_text", "_line_edit_title", "_line_edit_text", "_line_edit_unique_id", "_line_edit_keyword", "_line_edit_url")]
+script = ExtResource("2_jc6jf")
+_source = NodePath("..")
+_panel_edit_post_it = NodePath("../Panel Edit")
+_panel_view_post_it = NodePath("../Panel Display")
+_panel_buttons_of_post_it = NodePath("../Panel Display/VBoxContainer/HBoxContainer")
+_button_node_unique_id = NodePath("../Panel Display/VBoxContainer/HBoxContainer/Button Key To Clipboard")
+_button_node_keyword = NodePath("../Panel Display/VBoxContainer/HBoxContainer/Button Keyword Doc")
+_button_node_url = NodePath("../Panel Display/VBoxContainer/HBoxContainer/Button Url Doc")
+_color_picker_background = NodePath("../Panel Edit/ScrollContainer/VBoxContainer/HBoxContainer/ColorPickerButton Background")
+_color_picker_text = NodePath("../Panel Edit/ScrollContainer/VBoxContainer/HBoxContainer/ColorPickerButton Text")
+_line_edit_title = NodePath("../Panel Edit/ScrollContainer/VBoxContainer/LineEdit Title Edit")
+_line_edit_text = NodePath("../Panel Edit/ScrollContainer/VBoxContainer/TextEdit Text Edit")
+_line_edit_unique_id = NodePath("../Panel Edit/ScrollContainer/VBoxContainer/LineEdit Key")
+_line_edit_keyword = NodePath("../Panel Edit/ScrollContainer/VBoxContainer/LineEdit Keyword")
+_line_edit_url = NodePath("../Panel Edit/ScrollContainer/VBoxContainer/LineEdit Doc")
+metadata/_custom_type_script = "uid://dk0wpxtldej1e"
+
+[node name="PostItSetFontColor Text" type="Node" parent="PostItGraphNodeBasicUiManager" unique_id=829061259 node_paths=PackedStringArray("_target_to_affect")]
+script = ExtResource("3_6gajo")
+_target_to_affect = NodePath("../../Panel Display/VBoxContainer/RichTextLabel")
+metadata/_custom_type_script = "uid://cj3mokfd7v2b2"
+
+[node name="PostItSetColorModulate" type="Node" parent="PostItGraphNodeBasicUiManager" unique_id=628368669 node_paths=PackedStringArray("_target")]
+script = ExtResource("4_oqcf3")
+_target = NodePath("../../Panel Edit")
+metadata/_custom_type_script = "uid://cfspkgbigfuuh"
+
+[node name="Panel Display" type="Panel" parent="." unique_id=117911319]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
-text = "test"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel Display" unique_id=2138355238]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel Display/VBoxContainer" unique_id=734933967]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel Display/VBoxContainer" unique_id=979121613]
+layout_mode = 2
+
+[node name="Button Key To Clipboard" type="Button" parent="Panel Display/VBoxContainer/HBoxContainer" unique_id=1154304816]
+layout_mode = 2
+text = "🔑"
+
+[node name="Button Keyword Doc" type="Button" parent="Panel Display/VBoxContainer/HBoxContainer" unique_id=1699802664]
+layout_mode = 2
+text = "🔖"
+
+[node name="Button Url Doc" type="Button" parent="Panel Display/VBoxContainer/HBoxContainer" unique_id=858362000]
+layout_mode = 2
+text = "❓"
+
+[node name="Panel Edit" type="Panel" parent="." unique_id=1485408190]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel Edit" unique_id=1180575716]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel Edit/ScrollContainer" unique_id=243120911]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextEdit Text Edit" type="TextEdit" parent="Panel Edit/ScrollContainer/VBoxContainer" unique_id=301431545]
+self_modulate = Color(1, 1, 0, 1)
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Text BBCode"
+
+[node name="PostItListenToTextEditEmit" type="Node" parent="Panel Edit/ScrollContainer/VBoxContainer/TextEdit Text Edit" unique_id=306263599 node_paths=PackedStringArray("_text_edit")]
+script = ExtResource("2_yuy27")
+_text_edit = NodePath("..")
+_emit_at_ready = false
+_listen_to_text_emit = false
+metadata/_custom_type_script = "uid://dqrtyyg7rvxbw"
+
+[node name="LineEdit Title Edit" type="LineEdit" parent="Panel Edit/ScrollContainer/VBoxContainer" unique_id=1500467750]
+layout_mode = 2
+placeholder_text = "Title"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel Edit/ScrollContainer/VBoxContainer" unique_id=191030452]
+layout_mode = 2
+
+[node name="ColorPickerButton Background" type="ColorPickerButton" parent="Panel Edit/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=905786675]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "🟨"
+color = Color(0.9607843, 1, 0, 1)
+
+[node name="ColorPickerButton Text" type="ColorPickerButton" parent="Panel Edit/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=384064608]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "🟨"
+color = Color(1, 1, 1, 1)
+
+[node name="LineEdit Key" type="LineEdit" parent="Panel Edit/ScrollContainer/VBoxContainer" unique_id=1183755124]
+layout_mode = 2
+placeholder_text = "🔑"
+
+[node name="Button" type="Button" parent="Panel Edit/ScrollContainer/VBoxContainer/LineEdit Key" unique_id=1574978575]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8947368
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "🎲"
+metadata/_edit_use_anchors_ = true
+
+[node name="LineEdit Keyword" type="LineEdit" parent="Panel Edit/ScrollContainer/VBoxContainer" unique_id=1564831551]
+layout_mode = 2
+placeholder_text = "📕"
+
+[node name="LineEdit Doc" type="LineEdit" parent="Panel Edit/ScrollContainer/VBoxContainer" unique_id=1410487547]
+layout_mode = 2
+placeholder_text = "❓"
+
+[node name="Button To Clipboard" type="Button" parent="Panel Edit/ScrollContainer/VBoxContainer" unique_id=799796253]
+layout_mode = 2
+text = "📋"
+
+[connection signal="on_post_it_background_color_set" from="." to="PostItGraphNodeBasicUiManager/PostItSetColorModulate" method="set_color_of_modulate"]
+[connection signal="on_post_it_background_color_set" from="." to="Panel Edit/ScrollContainer/VBoxContainer/HBoxContainer/ColorPickerButton Background" method="set_pick_color"]
+[connection signal="on_post_it_text_color_set" from="." to="PostItGraphNodeBasicUiManager/PostItSetFontColor Text" method="set_color_of_font"]
+[connection signal="on_post_it_text_color_set" from="." to="Panel Edit/ScrollContainer/VBoxContainer/HBoxContainer/ColorPickerButton Text" method="set_pick_color"]
+[connection signal="on_post_it_text_set" from="." to="Panel Display/VBoxContainer/RichTextLabel" method="set_text"]
+[connection signal="on_post_it_text_set" from="." to="Panel Edit/ScrollContainer/VBoxContainer/TextEdit Text Edit" method="set_text"]
+[connection signal="on_post_it_title_set" from="." to="." method="set_title"]
+[connection signal="on_post_it_title_set" from="." to="Panel Edit/ScrollContainer/VBoxContainer/LineEdit Title Edit" method="set_text"]
+[connection signal="button_down" from="Panel Display/VBoxContainer/HBoxContainer/Button Key To Clipboard" to="." method="push_unique_id_in_clipboard"]
+[connection signal="button_down" from="Panel Display/VBoxContainer/HBoxContainer/Button Keyword Doc" to="." method="open_linked_keyword_in_google"]
+[connection signal="button_down" from="Panel Display/VBoxContainer/HBoxContainer/Button Url Doc" to="." method="open_documentation_url"]
+[connection signal="on_text_changed" from="Panel Edit/ScrollContainer/VBoxContainer/TextEdit Text Edit/PostItListenToTextEditEmit" to="." method="set_post_it_text"]
+[connection signal="text_changed" from="Panel Edit/ScrollContainer/VBoxContainer/LineEdit Title Edit" to="." method="set_title"]
+[connection signal="color_changed" from="Panel Edit/ScrollContainer/VBoxContainer/HBoxContainer/ColorPickerButton Background" to="." method="set_post_it_background_color"]
+[connection signal="color_changed" from="Panel Edit/ScrollContainer/VBoxContainer/HBoxContainer/ColorPickerButton Text" to="." method="set_post_it_text_color"]
+[connection signal="text_changed" from="Panel Edit/ScrollContainer/VBoxContainer/LineEdit Key" to="." method="set_post_it_unique_id"]
+[connection signal="button_down" from="Panel Edit/ScrollContainer/VBoxContainer/LineEdit Key/Button" to="." method="set_post_it_unique_id_with_generate_random_guid"]
+[connection signal="text_changed" from="Panel Edit/ScrollContainer/VBoxContainer/LineEdit Keyword" to="." method="set_post_it_linked_keyword"]
+[connection signal="text_changed" from="Panel Edit/ScrollContainer/VBoxContainer/LineEdit Doc" to="." method="set_post_it_documentation_url"]
+[connection signal="button_down" from="Panel Edit/ScrollContainer/VBoxContainer/Button To Clipboard" to="." method="export_as_string_node_to_clipboard"]
